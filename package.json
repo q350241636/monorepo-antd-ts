@@ -1,58 +1,66 @@
 {
-    "name": "yarn-workspace-lerna-monorepo",
-    "version": "1.0.0",
-    "repository": "https://github.com/bryan-hunter/yarn-workspace-lerna-monorepo",
-    "private": true,
-    "workspaces": [
-        "shared/**",
-        "apps/**"
-    ],
-    "scripts": {
-        "build": "lerna run build",
-        "build:changed": "lerna run --since origin/master --include-dependents build",
-        "lint": "lerna exec -- eslint . --ext .js,.jsx,.ts,.tsx",
-        "lint:changed": "lerna exec --since origin/master --include-dependents -- eslint . --ext .js,.jsx,.ts,.tsx",
-        "test": "lerna run test",
-        "test:changed": "lerna run --since origin/master --include-dependents test",
-        "test:update": "lerna run test -- -u",
-        "test:update:changed": "lerna run --since origin/master --include-dependents test -- -u",
-        "typecheck": "lerna exec -- tsc --noEmit",
-        "typecheck:changed": "lerna exec --since origin/master --include-dependents -- tsc --noEmit",
-        "prepare": "husky install"
-    },
-    "lint-staged": {
-        "**/*": "prettier --write --ignore-unknown"
-    },
-    "devDependencies": {
-        "@testing-library/react": "^10.4.7",
-        "@testing-library/react-hooks": "^3.3.0",
-        "@types/react": "^16.9.43",
-        "@types/react-dom": "^16.9.8",
-        "@types/react-router-dom": "^5.1.5",
-        "@typescript-eslint/eslint-plugin": "^5.3.1",
-        "@typescript-eslint/parser": "^5.3.1",
-        "eslint": "^7.4.0",
-        "eslint-config-airbnb-typescript": "^8.0.2",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-loader": "^4.0.2",
-        "eslint-plugin-import": "^2.22.0",
-        "eslint-plugin-jest": "^23.18.0",
-        "eslint-plugin-jsx-a11y": "^6.3.1",
-        "eslint-plugin-react": "^7.20.3",
-        "eslint-plugin-react-hooks": "^4.0.8",
-        "eslint-webpack-plugin": "^3.1.0",
-        "husky": "^4.2.5",
-        "jest": "^26.1.0",
-        "lerna": "^3.22.1",
-        "lint-staged": "^10.2.11",
-        "prettier": "^2.0.5",
-        "react-test-renderer": "^16.13.1",
-        "ts-jest": "^26.1.3",
-        "typescript": "^4.4.4"
-    },
-    "dependencies": {
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "react-router-dom": "^5.3.0"
-    }
+  "name": "yarn-workspace-lerna-monorepo",
+  "version": "1.0.0",
+  "repository": "https://github.com/bryan-hunter/yarn-workspace-lerna-monorepo",
+  "private": true,
+  "workspaces": [
+    "shared/**",
+    "apps/**"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "build:changed": "lerna run --since origin/master --include-dependents build",
+    "lint": "lerna exec -- eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:changed": "lerna exec --since origin/master --include-dependents -- eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "lerna run test",
+    "test:changed": "lerna run --since origin/master --include-dependents test",
+    "test:update": "lerna run test -- -u",
+    "test:update:changed": "lerna run --since origin/master --include-dependents test -- -u",
+    "typecheck": "lerna exec -- tsc --noEmit",
+    "typecheck:changed": "lerna exec --since origin/master --include-dependents -- tsc --noEmit",
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/react": "^6.3.12",
+    "@testing-library/react": "^10.4.7",
+    "@testing-library/react-hooks": "^3.3.0",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "babel-loader": "^8.2.3",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-typescript": "^8.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-webpack-plugin": "^3.1.0",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "react-test-renderer": "^16.13.1",
+    "ts-jest": "^26.1.3",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0"
+  }
 }
