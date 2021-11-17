@@ -1,26 +1,29 @@
 import React, { memo } from 'react'
-import { Spin } from 'antd'
-import { connect } from 'react-redux'
-import { apiGetMenuList } from '../views/auth/user/service'
-import { Menu } from '../views/auth/menu/service'
-import { IRoute, flattenRoutes } from '../router/config'
-import { IStoreState } from '../store/types'
-import TransitionMain from '../components/TransitionMain'
-import { setRoutes } from '../store/module/app'
 
+import { IRoute } from '../router/types'
+import { IStoreState } from '../store/types'
+import { Menu } from '../views/auth/menu/service'
+import { Spin } from 'antd'
+import TransitionMain from '../components/TransitionMain'
+import { apiGetMenuList } from '../views/auth/user/service'
+import { connect } from 'react-redux'
+import { flattenRoute } from '../router/utils'
+import routes from '../router/config'
+import { setRoutes } from '@/store/module/app'
+
+console.log('routes', routes)
 interface AsyncRoutesProps {
   children: React.ReactNode
   init: boolean
   setRoutes: (routes: IRoute[]) => void
 }
+const flattenRoutes = flattenRoute(routes, true, false)
 
 function formatMenuToRoute(menus: Menu[]): IRoute[] {
   const result: IRoute[] = []
 
   menus.forEach(menu => {
-    console.log('flattenRoutes', flattenRoutes, menu)
     const staticRoute = flattenRoutes.find(s => s.path === menu.url)
-    console.log('staticRoute', staticRoute)
     if (staticRoute) {
       const route: IRoute = {
         path: menu.url,

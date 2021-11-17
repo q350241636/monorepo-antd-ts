@@ -20,14 +20,16 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "skywalking-client-js": "^0.7.0"
   },
-  "proxy": "https://www.landluck.cn/react-ant-admin-api",
   "homepage": "https://www.landluck.cn/react-ant-admin",
   "scripts": {
     "start": "node scripts/start.js",
+    "vite": "vite",
+    "vite:build": "vite build",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "jest",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .eslintignore .",
@@ -36,9 +38,6 @@
     "lint:prettier": "check-prettier lint --ignore-path .eslintignore .",
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "prettier": "prettier -c --write \"**/*\""
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "husky": {
     "hooks": {
@@ -114,18 +113,17 @@
       "jest-watch-typeahead/testname"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "7.6.0",
+    "@babel/plugin-proposal-decorators": "^7.16.0",
     "@svgr/webpack": "4.3.2",
     "@types/classnames": "^2.2.9",
+    "@types/enzyme": "^3.10.10",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "24.0.23",
     "@types/js-cookie": "^2.2.4",
     "@types/node": "12.12.7",
+    "@types/path-to-regexp": "^1.7.0",
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.4",
     "@types/react-helmet": "^5.0.14",
@@ -133,6 +131,8 @@
     "@types/react-router-dom": "^5.1.2",
     "@types/react-transition-group": "^4.2.3",
     "@types/redux-logger": "^3.0.7",
+    "@vitejs/plugin-legacy": "^1.6.2",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
@@ -145,19 +145,20 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "5.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
     "file-loader": "3.0.1",
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-beta.5",
+    "http-proxy-middleware": "^2.0.1",
     "husky": "^3.1.0",
-    "identity-obj-proxy": "3.0.0",
+    "identity-obj-proxy": "^3.0.0",
     "install": "^0.13.0",
     "is-wsl": "^1.1.0",
-    "jest": "24.9.0",
-    "jest-environment-jsdom-fourteen": "0.1.0",
-    "jest-resolve": "24.9.0",
-    "jest-watch-typeahead": "0.4.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "less-vars-to-js": "^1.3.0",
     "lint-staged": "^9.4.3",
     "mini-css-extract-plugin": "0.8.0",
     "npm": "^6.13.1",
@@ -179,6 +180,7 @@
     "ts-pnp": "1.1.4",
     "typescript": "4.4.4",
     "url-loader": "2.1.0",
+    "vite": "^2.6.14",
     "webpack": "4.41.0",
     "webpack-dev-server": "3.2.1",
     "webpack-manifest-plugin": "2.1.1",

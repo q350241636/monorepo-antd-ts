@@ -1,8 +1,10 @@
-import React from 'react'
-import { Tabs, Empty, List, Typography } from 'antd'
-import classnames from 'classnames'
-import { NoticeState, NoticeMessageItem } from '../../store/module/notice'
 import './NoticeTab.less'
+
+import { Empty, List, Tabs, Typography } from 'antd'
+import { NoticeMessageItem, NoticeState } from '../../store/module/notice'
+
+import React from 'react'
+import classnames from 'classnames'
 
 function renderNoticeList(
   list: NoticeMessageItem[],
@@ -60,7 +62,7 @@ function renderNoticeTab(
 
   return (
     <div className="navbar__notice">
-      <Tabs size="large">
+      <Tabs size="middle">
         {noticeList.map(notice => (
           <Tabs.TabPane tab={`${notice.title} (${notice.count})`} key={notice.key}>
             {notice.list.length === 0 ? (

@@ -1,13 +1,14 @@
-import React, { memo, useCallback } from 'react'
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Menu, message } from 'antd'
-import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import NavDropdown from './NavDropdown'
+import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
+import React, { memo, useCallback } from 'react'
+import { UserState, setUserInfo } from '../../store/module/user'
+
 import { IStoreState } from '../../store/types'
+import NavDropdown from './NavDropdown'
 import { clearSideBarRoutes } from '../../store/module/app'
-import { setUserInfo, UserState } from '../../store/module/user'
+import { connect } from 'react-redux'
 import { removeToken } from '../../utils/cookie'
+import { useHistory } from 'react-router-dom'
 
 interface AvatarDropdownProps {
   avatar?: string
@@ -20,7 +21,7 @@ interface AvatarDropdownProps {
 
 function renderManageUser(onMenuClick: (params: { key: string }) => void) {
   return (
-    <Menu selectedKeys={[]} onClick={onMenuClick}>
+    <Menu className="avatar-dropdown" selectedKeys={[]} onClick={onMenuClick}>
       <Menu.Item key="center">
         <UserOutlined />
         个人中心
@@ -53,7 +54,7 @@ function AvatarDropdown(props: AvatarDropdownProps) {
   }, [])
 
   return (
-    <NavDropdown overlay={renderManageUser(onMenuClick)} trigger={['hover']}>
+    <NavDropdown overlay={renderManageUser(onMenuClick)} trigger={['click']}>
       <div className={props.classNames}>
         <Avatar size="small" className="layout__navbar__avatar" src={props.avatar} alt="avatar" />
         <span className="layout__navbar__account">{props.account}</span>

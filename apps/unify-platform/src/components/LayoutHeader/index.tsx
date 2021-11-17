@@ -1,14 +1,17 @@
-import React, { memo } from 'react'
-import { connect } from 'react-redux'
-import classNames from 'classnames'
-import { Layout } from 'antd'
-import Logo from '../SidebarLogo'
-// import { AppState } from '../../store/module/app';
-import { IStoreState } from '../../store/types'
-import { Settings } from '../../store/module/settings'
-import LayoutTopNavHeader from '../LayoutTopNavHeader'
-import LayoutNavBar from '../LayoutNavBar'
 import './index.less'
+
+import React, { memo } from 'react'
+
+import { IStoreState } from '../../store/types'
+import { Layout } from 'antd'
+import LayoutNavBar from '../LayoutNavBar'
+import LayoutTopNavHeader from '../LayoutTopNavHeader'
+import Logo from '../SidebarLogo'
+import { Settings } from '../../store/module/settings'
+import classNames from 'classnames'
+import { connect } from 'react-redux'
+
+// import { AppState } from '../../store/module/app';
 
 const AntdHeader = Layout.Header
 

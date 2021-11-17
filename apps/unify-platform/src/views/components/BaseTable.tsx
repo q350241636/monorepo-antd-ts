@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Table } from 'antd'
 import { PaginationProps } from 'antd/lib/pagination'
 import { TableProps } from 'antd/lib/table'
-import { PageResponseData } from '../../typings'
+import { PageResponseData } from '@/typings'
 
 // 基本的表格组件，后续根据需求可继续完善
 

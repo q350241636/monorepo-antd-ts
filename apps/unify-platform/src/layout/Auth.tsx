@@ -3,7 +3,7 @@ import { Redirect, RouteComponentProps } from 'react-router-dom'
 import store from '../store'
 import { businessRouteList } from '../router/utils'
 import { getToken } from '../utils/cookie'
-import { IRoute } from '../router/config'
+import { IRoute } from '../router/types'
 import config from '../config'
 
 interface AuthProps extends RouteComponentProps {
@@ -18,7 +18,6 @@ function checkAuth(location: RouteComponentProps['location']): boolean {
   // 判断当前访问路由是否在系统路由中, 不存在直接走最后默认的 404 路由
   const route = businessRouteList.find(child => child.path === location.pathname)
 
-  console.log('checkAuth', route)
   if (!route) {
     return true
   }

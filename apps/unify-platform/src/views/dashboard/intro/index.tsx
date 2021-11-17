@@ -1,23 +1,22 @@
-import React, { memo, useState, useEffect } from 'react'
-import ReactMarkdown from 'react-markdown'
+import React, { memo, useEffect } from 'react'
+// import React, { memo, useState, useEffect } from 'react'
+
+// import ReactMarkdown from 'react-markdown'
 import PageWrap from '../../components/PageWrap'
-import { requestMd } from '../../../api/requestMd'
-import introMd from './intro.md'
+// import { requestMd } from '../../../api/requestMd'
+// import introMd from './intro.md'
 
 function Intro() {
-  const [introText, setIntroText] = useState<string>('')
+  // const [introText, setIntroText] = useState<string>('')
 
   useEffect(() => {
-    requestMd({ url: introMd }).then(({ data }) => {
-      setIntroText(data)
-    })
+    // requestMd({ url: introMd }).then(({ data }) => {
+    //   console.log('requestMd', data)
+    //   setIntroText(data)
+    // })
   }, [])
 
-  return (
-    <PageWrap className="intro">
-      <ReactMarkdown className="markdown-body" source={introText} />
-    </PageWrap>
-  )
+  return <PageWrap className="intro">{/* <ReactMarkdown className="markdown-body" source={introText} /> */}</PageWrap>
 }
 
 export default memo(Intro)

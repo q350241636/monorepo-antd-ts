@@ -25,7 +25,6 @@ const customMiddleware = (store: { getState: () => any }) => (
   console.info("customMiddleware-before", action)
   const result = next(action)
   console.log("customMiddleware-after-state", store.getState())
-  console.trace()
   console.groupEnd()
   return result
 }

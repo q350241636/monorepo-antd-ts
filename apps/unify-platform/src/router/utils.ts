@@ -1,4 +1,5 @@
-import routes, { IRoute } from "./config"
+import routes from "./config"
+import { IRoute }  from './types'
 import config from "../config"
 
 /**
@@ -15,7 +16,7 @@ export function flattenRoute(
   auth: boolean
 ): IRoute[] {
   const result: IRoute[] = []
-
+  if(!routeList) return []
   for (let i = 0; i < routeList.length; i += 1) {
     const route = routeList[i]
 
@@ -104,3 +105,8 @@ export function getBreadcrumbs(): IRoute[] {
     config.BASENAME
   )
 }
+
+
+// export default{
+//   getPagePathList,getBreadcrumbs,getPageTitle,flattenRoute
+// }

@@ -10,4 +10,4 @@ module.exports = {
     verbose: true,
     projects: ['<rootDir>'],
     coverageDirectory: '<rootDir>/coverage/',
-};
+}

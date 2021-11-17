@@ -1,14 +1,17 @@
-import React, { Suspense } from 'react'
-import { connect } from 'react-redux'
-import classnames from 'classnames'
-import { Spin } from 'antd'
-import { IStoreState } from '../store/types'
 import './index.less'
-import Sidebar from '../components/LayoutSideBar'
-import { Settings } from '../store/module/settings'
+
+import React, { Suspense, useEffect } from 'react'
+
 import Header from '../components/LayoutHeader'
+import { IStoreState } from '../store/types'
 import LayoutSettings from '../components/LayoutSettings'
 import MainRoutes from './MainRoutes'
+import { Settings } from '../store/module/settings'
+import Sidebar from '@/components/LayoutSideBar'
+import { Spin } from 'antd'
+import classnames from 'classnames'
+import { connect } from 'react-redux'
+import { setCurrentPath } from '@/store/module/app'
 
 interface LayoutProps {
   layout: Settings['layout']
@@ -18,10 +21,19 @@ interface LayoutProps {
   fixedHeader: boolean
 
   contentWidth: Settings['contentWidth']
+
+  setCurrentPath: (path: string) => void
 }
 
-function Layout(props: LayoutProps) {
+const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
   const { layout } = props
+
+  /** 页面切换的时候触发 */
+  useEffect((): void => {
+    console.log('layout-切换切换', location.pathname)
+    props.setCurrentPath(location.pathname)
+  }, [location.pathname, location.pathname?.search])
+
   return (
     <>
       <section
@@ -48,12 +60,15 @@ function Layout(props: LayoutProps) {
         <LayoutSettings />
       </section>
     </>
-  )
+  ) as React.ReactElement
 }
 
-export default connect(({ settings: { layout, colorWeak, fixedHeader, contentWidth } }: IStoreState) => ({
-  layout,
-  colorWeak,
-  fixedHeader,
-  contentWidth,
-}))(Layout)
+export default connect(
+  ({ settings: { layout, colorWeak, fixedHeader, contentWidth } }: IStoreState) => ({
+    layout,
+    colorWeak,
+    fixedHeader,
+    contentWidth,
+  }),
+  { setCurrentPath },
+)(Layout)

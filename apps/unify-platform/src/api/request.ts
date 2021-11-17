@@ -1,10 +1,11 @@
-import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
-import { message, Modal } from 'antd'
+import { Modal, message } from 'antd'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+
 import AdminConfig from '../config'
-import { getToken } from '../utils/cookie'
-import store from "../store"
-import { logout } from '../store/module/user'
 import { clearSideBarRoutes } from '../store/module/app'
+import { getToken } from '../utils/cookie'
+import { logout } from '../store/module/user'
+import store from "../store"
 
 interface ResponseData<T> {
   code: number;
@@ -22,7 +23,7 @@ axios.defaults.headers = {
 
 // 指定请求地址
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? AdminConfig.API_URL : ''
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? AdminConfig.API_URL : '/api'
 
 // 添加请求拦截器
 axios.interceptors.request.use(
@@ -59,7 +60,7 @@ axios.interceptors.response.use(
           store.dispatch(logout())
           window.location.href = `${
             window.location.origin
-          }/react-ant-admin/system/login?redirectURL=${encodeURIComponent(window.location.href)}`
+          }/system/login?redirectURL=${encodeURIComponent(window.location.href)}`
         },
         onCancel() {
           console.log('clicked onCancel')

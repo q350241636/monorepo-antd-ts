@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { Route, Switch, Link } from 'react-router-dom'
 import { Spin, Result, Button, Layout, Typography } from 'antd'
 import { getPageTitle, systemRouteList } from '../router/utils'
-import { IRoute } from '../router/config'
+import { IRoute } from '../router/types'
 import './UserLayout.less'
 
 interface UserLayoutState {

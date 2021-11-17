@@ -9,7 +9,7 @@ import {
   DashboardOutlined,
   ReadOutlined,
 } from '@ant-design/icons'
-import { IRoute, IRouteMeta } from '../../router/config'
+import { IRoute, IRouteMeta } from '../../router/types'
 import './index.less'
 import config from '../../config'
 

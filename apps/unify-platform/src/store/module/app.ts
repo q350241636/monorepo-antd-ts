@@ -1,8 +1,8 @@
-import { Reducer } from 'redux'
 import { IAction } from '../types'
-import { IRoute } from '../../router/config'
-import { flattenRoute } from '../../router/utils'
+import { IRoute } from '../../router/types'
 import LocalStore from '../../utils/store'
+import { Reducer } from 'redux'
+import { flattenRoute } from '../../router/utils'
 
 export interface AppState {
   sidebar: {
@@ -20,6 +20,8 @@ export interface AppState {
   init: boolean;
 
   prefixCls?:string;
+
+  currentPath:string
 }
 
 const SIDEBAR_KEY = 'React-ant-Admin-SideBar-Opened'
@@ -38,6 +40,7 @@ const defaultApp: AppState = {
   routes: [],
   flattenRoutes: [],
   init: false,
+  currentPath:'/'
 }
 
 const SET_SIDE_BAR_OPENED = 'SET_SIDE_BAR_OPENED'
@@ -45,6 +48,9 @@ const SET_ROUTES='SET_ROUTES'
 const SET_TOP_NAV_ROUTES = 'SET_TOP_NAV_ROUTES'
 const SET_SIDE_BAR_ROUTES = 'SET_SIDE_BAR_ROUTES'
 const RMOVE_SIDE_BAR_ROUTES = 'RMOVE_SIDE_BAR_ROUTES'
+
+const SET_CURRENT_PATH = 'SET_CURRENT_PATH'
+
 
 export const updateSideBar = (sidebar: AppState['sidebar']) => ({
   type: SET_SIDE_BAR_OPENED,
@@ -70,6 +76,11 @@ export const setSideBarRoutes = (routes: IRoute[]) => ({
 export const clearSideBarRoutes = () => ({
   type: RMOVE_SIDE_BAR_ROUTES,
   payload: null,
+})
+
+export const setCurrentPath=(path: string) => ({
+  type:SET_CURRENT_PATH,
+  payload: path,
 })
 
 const appReducer: Reducer<AppState, IAction<any>> = (state = defaultApp, action: IAction<any>) => {
@@ -107,6 +118,11 @@ const appReducer: Reducer<AppState, IAction<any>> = (state = defaultApp, action:
         routes: [],
         flattenRoutes: [],
         init: false,
+      }
+    case SET_CURRENT_PATH:
+      return {
+        ...state,
+        currentPath: payload
       }
 
     default:

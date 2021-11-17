@@ -1,20 +1,22 @@
-import React, { memo, useState, useCallback, useEffect } from 'react'
+import './index.less'
+
+import {
+  NoticeKeyAndIndexAndCount,
+  NoticeMessageModule,
+  NoticeState,
+  clearNoticeByKey,
+  readNoticeByKeyAndIndex,
+} from '../../store/module/notice'
+import React, { memo, useCallback, useEffect, useState } from 'react'
+
+import { IStoreState } from '../../store/types'
+import NavBarItem from '../LayoutNavBar/NavBarItem'
+import NavDropdown from '../LayoutNavBar/NavDropdown'
+import { Settings } from '../../store/module/settings'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { message } from 'antd'
-import NavDropdown from '../LayoutNavBar/NavDropdown'
-import NavBarItem from '../LayoutNavBar/NavBarItem'
-import { IStoreState } from '../../store/types'
-import { Settings } from '../../store/module/settings'
-import {
-  NoticeState,
-  NoticeMessageModule,
-  clearNoticeByKey,
-  readNoticeByKeyAndIndex,
-  NoticeKeyAndIndexAndCount,
-} from '../../store/module/notice'
 import renderNoticeTab from './NoticeTab'
-import './index.less'
 
 interface NoticeIconProps {
   theme: Settings['theme']
@@ -26,11 +28,14 @@ interface NoticeIconProps {
 function NoticeIcon(props: NoticeIconProps) {
   const [noticeVisible, setNoticeVisible] = useState(false)
 
-  const onNoticeIconClick = useCallback(() => {
+  const onNoticeIconClick = useCallback((e: React.MouseEvent) => {
+    console.log('onNoticeIconClick', e)
+    // e.stopPropagation()
     setNoticeVisible(true)
   }, [])
 
-  const closeNotice = useCallback(() => {
+  const closeNotice = useCallback((e: MouseEvent) => {
+    console.log('closeNotice', e)
     setNoticeVisible(false)
   }, [])
 
@@ -38,14 +43,14 @@ function NoticeIcon(props: NoticeIconProps) {
     const root = window.document.getElementById('root')
 
     if (root) {
-      root.addEventListener('click', closeNotice, false)
+      root.addEventListener('click', (e: MouseEvent) => closeNotice(e), true)
     }
     return () => {
       if (root) {
-        root.removeEventListener('click', closeNotice)
+        root.removeEventListener('click', (e: MouseEvent) => closeNotice(e))
       }
     }
-  }, [closeNotice])
+  }, [])
 
   const onMessageClick = useCallback(
     (key: keyof NoticeState, index: number) => {
@@ -80,7 +85,12 @@ function NoticeIcon(props: NoticeIconProps) {
       placement="topLeft"
     >
       <div className={classnames('layout__navbar__menu-item', `layout__navbar__menu-item--${props.theme}`)}>
-        <NavBarItem onClick={onNoticeIconClick} icon="bell" count={noticeTotal} overflowCount={99} />
+        <NavBarItem
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => onNoticeIconClick(e)}
+          icon="bell"
+          count={noticeTotal}
+          overflowCount={99}
+        />
       </div>
     </NavDropdown>
   )

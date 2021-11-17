@@ -1,16 +1,19 @@
-import { useState, memo, useEffect } from 'react'
+import './index.less'
+
 import * as React from 'react'
+
+import { AppState, setSideBarRoutes } from '@/store/module/app'
+import { memo, useEffect, useState } from 'react'
+import { renderMenu, renderTitle } from '../SideMenu'
+
+import { IRoute } from '@/router/types'
+import { IStoreState } from '@/store/types'
+import { Menu } from 'antd'
+import { Settings } from '@/store/module/settings'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import './index.less'
+import { pathToRegexp } from 'path-to-regexp'
 import { useHistory } from 'react-router-dom'
-import { Menu } from 'antd'
-import pathToRegexp from 'path-to-regexp'
-import { IRoute } from '../../router/config'
-import { IStoreState } from '../../store/types'
-import { Settings } from '../../store/module/settings'
-import { AppState, setSideBarRoutes } from '../../store/module/app'
-import { renderTitle, renderMenu } from '../SideMenu'
 
 interface TopNavHeaderProps {
   // fixedHeader?: boolean
@@ -20,6 +23,7 @@ interface TopNavHeaderProps {
   routes?: AppState['routes']
   prefixCls?: AppState['prefixCls']
   className?: string
+  currentPath: string
   style?: Record<string, unknown>
   setSideBarRoutes: (routes: IRoute[]) => void
 }
@@ -31,22 +35,29 @@ const TopNav: React.FC<TopNavHeaderProps> = props => {
   const [sideRoutes, setSideRoutes] = useState<IRoute[]>([])
 
   // const ref = useRef(null);
-  const { theme, className: propsClassName, style, layout, routes } = props
+  const { theme, className: propsClassName, style, layout, routes, currentPath } = props
   const prefixCls = `${props.prefixCls || 'layout'}__top-nav`
 
   const className = classNames(prefixCls, propsClassName, {
     light: theme === 'light',
   })
+
+  /**
+   * todo: remove
+   *
+   * @param key
+   */
   const activeRoutes = (key: string): void => {
     console.log('activeRoutes-key', key)
-    console.log('sideRoutes', sideRoutes)
+    console.log('activeRoutes-sideRoutes', sideRoutes)
+
     const currentRoutes = sideRoutes.filter(s => s.parentKey === key)
     console.log('activeRoutes-sideRoutes', sideRoutes)
     console.log('activeRoutes-currentRoutes', currentRoutes)
 
-    // TODO commit currentRoute.children to sidebar
     props.setSideBarRoutes(currentRoutes)
   }
+
   /**
    *顶部导航
    */
@@ -64,13 +75,18 @@ const TopNav: React.FC<TopNavHeaderProps> = props => {
       if (router.children && Array.isArray(router.children)) {
         router.children.forEach((child: IRoute) => {
           // eslint-disable-next-line no-param-reassign
-          if (!child.parentKey) child.parentKey = router.key || router.path
+          const key = router.key || router.path
+          // if (key.includes('dashboard')) {
+          //   key = key.replace('dashboard', 'dashborad')
+          // }
+          if (!child.parentKey) child.parentKey = key
           sidebarRoutes.push(child)
         })
         // eslint-disable-next-line no-param-reassign
         router.children = []
       }
     })
+    console.log('sidebarRoutes', sidebarRoutes)
     setSideRoutes(sidebarRoutes)
   }, [topRoutes])
 
@@ -98,39 +114,51 @@ const TopNav: React.FC<TopNavHeaderProps> = props => {
       return undefined
     })
 
-  // const [openedKeys, setOpenedKeys] = useState<string[]>([]);
-
   /**
    * 页面加载激活菜单
    */
   useEffect((): void => {
+    console.log('useEffect-sideRoutes')
     // eslint-disable-next-line no-restricted-globals
     const currentKey = location.pathname || '/'
     let activeTopKey = ''
     topRoutes.some(router => {
-      const { path } = router
+      let { path } = router
+      const pathCopy = path
+      if (path.includes('dashboard')) {
+        path = path.replace('dashboard', 'dashborad')
+      }
       const isSelected = currentKey.startsWith(path) || (path.includes(':') && pathToRegexp(path).exec(currentKey))
       console.log('path', path, 'currentKey', currentKey)
-      if (isSelected) activeTopKey = path
-      return true
+      if (isSelected) activeTopKey = pathCopy
+      return isSelected
     })
     setSelectedKeys([activeTopKey])
     activeTopKey && activeRoutes(activeTopKey)
   }, [sideRoutes])
 
-  // useEffect((): void => {
-  //   const currentKey = location.pathname;
-  //   const defaultSelectedKeys = [];
-  //   sideRoutes.forEach(router => {
-  //     const { path } = router;
-  //     const isSelected = currentKey.startsWith(path) || (path.includes(':') && pathToRegexp(path).exec(currentKey));
-  //     console.log('path', path, 'currentKey', currentKey);
-  //     if (isSelected) defaultSelectedKeys.push(path);
-  //   });
-  //   setSelectedkeys(defaultSelectedKeys);
-  //   // props.setSideBarRoutes(currentRoutes);
-  //   // activeRoutes(location.pathname);
-  // }, [sideRoutes]);
+  /**
+   * 页面加载激活菜单
+   */
+  useEffect((): void => {
+    console.log('currentPath-changed')
+    // eslint-disable-next-line no-restricted-globals
+    const currentKey = location.pathname || '/'
+    let activeTopKey = ''
+    topRoutes.some(router => {
+      let { path } = router
+      const pathCopy = path
+      if (path.includes('dashboard')) {
+        path = path.replace('dashboard', 'dashborad')
+      }
+      const isSelected = currentKey.startsWith(path) || (path.includes(':') && pathToRegexp(path).exec(currentKey))
+      console.log('path', path, 'currentKey', currentKey)
+      if (isSelected) activeTopKey = pathCopy
+      return isSelected
+    })
+    setSelectedKeys([activeTopKey])
+    activeTopKey && activeRoutes(activeTopKey)
+  }, [currentPath])
 
   /**
    * render函数
@@ -146,11 +174,12 @@ const TopNav: React.FC<TopNavHeaderProps> = props => {
 }
 
 export default connect(
-  ({ settings, app: { sidebar, init, routes } }: IStoreState & TopNavHeaderProps) => ({
+  ({ settings, app: { sidebar, init, routes, currentPath } }: IStoreState & TopNavHeaderProps) => ({
     ...settings,
     sidebar,
     routes,
     init,
+    currentPath,
   }),
   { setSideBarRoutes },
 )(memo(TopNav))

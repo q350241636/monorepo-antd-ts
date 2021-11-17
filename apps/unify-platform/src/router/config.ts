@@ -1,37 +1,22 @@
+import { IRoute } from './types'
 import React from 'react'
+// import UserLayout from '../layout/UserLayout'
+// import Login from '../views/system/login'
+// import Register from '../views/system/register'
+// import RegisterResult from '../views/system/registerResult'
+// import RecoveryPwd from '../views/system/recoveryPwd'
+// import Layout from '../layout'
+// import Intro from '../views/dashboard/intro'
 
-import { flattenRoute } from './utils'
+// import Menu from '../views/auth/menu'
+// import User from '../views/auth/user'
+// import Role from '../views/auth/role'
 
-export interface IRouteBase {
-  // 路由路径
-  path: string
-  // 路由组件
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component?: React.ComponentType<any>
-  // 302 跳转
-  redirect?: string
-  // 路由信息
-  meta: IRouteMeta
-  // 是否校验权限, false 为不校验, 不存在该属性或者为true 为校验, 子路由会继承父路由的 auth 属性
-  auth?: boolean
+// import Notfound from '../views/error/404'
+// import UnAuthorized from '../views/error/403'
 
-  // router key
-  key?: string
+// import routeUtils from './utils'
 
-  // mix模式下顶部菜单
-  topHeader?: boolean
-}
-
-export interface IRouteMeta {
-  title: string
-  icon?: string
-}
-
-export interface IRoute extends IRouteBase {
-  children?: IRoute[]
-  // 父元素key
-  parentKey?: string
-}
 
 /**
  * routes 第一级路由负责最外层的路由渲染，比如 userLayout 和 Layout 的区分
@@ -82,7 +67,7 @@ const routes: IRoute[] = [
   {
     path: '/',
     component: React.lazy(() => import("../layout")),
-    // component: React.lazy(() => import('../layout/AntdLayout')),
+    // component: React.lazy(() => import('../layout/index')),
     meta: {
       title: '系统'
     },
@@ -180,6 +165,151 @@ const routes: IRoute[] = [
   }
 ]
 
-export const flattenRoutes: IRoute[] = flattenRoute(routes, true, false)
+
+
+// const routes: IRoute[] = [
+//   {
+//     path: '/system',
+//     component:UserLayout,
+//     meta: {
+//       title: '系统路由'
+//     },
+//     redirect: '/system/login',
+//     children: [
+//       {
+//         path: '/system/login',
+//         component: Login,
+//         meta: {
+//           title: '登录'
+//         }
+//       },
+//       {
+//         path: '/system/register',
+//         component:Register,
+//         meta: {
+//           title: '注册'
+//         }
+//       },
+//       {
+//         path: '/system/register-result/:id',
+//         auth: false,
+//         component:RegisterResult, 
+//         meta: {
+//           title: '注册结果'
+//         }
+//       },
+//       {
+//         path: '/system/recovery-pwd',
+//         auth: false,
+//         component: RecoveryPwd,
+//         meta: {
+//           title: '重置密码'
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     path: '/',
+//     component:Layout,
+//     // component: React.lazy(() => import('../layout/AntdLayout')),
+//     meta: {
+//       title: '系统'
+//     },
+//     redirect: '/dashborad/intro',
+//     children: [
+//       {
+//         path: '/dashboard',
+//         meta: {
+//           title: '首页',
+//           icon: 'dashboard'
+//         },
+//         redirect: '/dashborad/intro',
+//         children: [
+//           {
+//             path: '/dashborad/intro',
+//             component: Intro,
+//             meta: {
+//               title: '系统介绍',
+//               icon: 'read'
+//             }
+//           }
+//         ]
+//       },
+
+//       // 以下菜单为系统权限管理
+//       {
+//         path: '/auth',
+//         meta: {
+//           title: '权限管理',
+//           icon: 'setting'
+//         },
+//         redirect: '/auth/menu',
+//         children: [
+//           {
+//             path: '/auth/menu',
+//             meta: {
+//               title: '菜单管理',
+//               icon: 'menu'
+//             },
+//             component: Menu
+//           },
+//           {
+//             path: '/auth/role',
+//             meta: {
+//               title: '角色管理',
+//               icon: 'team'
+//             },
+//             component:Role
+//           },
+//           {
+//             path: '/auth/user',
+//             meta: {
+//               title: '用户管理',
+//               icon: 'user'
+//             },
+//             component: User
+//           }
+//         ]
+//       },
+
+//       // 以下的路由改动请小心，涉及权限校验模块
+//       {
+//         path: '/error',
+//         meta: {
+//           title: '错误页面'
+//         },
+//         redirect: '/error/404',
+//         children: [
+//           {
+//             path: '/error/404',
+//             auth: false,
+//             component: Notfound,
+//             meta: {
+//               title: '页面不存在'
+//             }
+//           },
+//           {
+//             path: '/error/403',
+//             auth: false,
+//             component: UnAuthorized,
+//             meta: {
+//               title: '暂无权限'
+//             }
+//           }
+//         ]
+//       },
+//       {
+//         path: '/*',
+//         meta: {
+//           title: '错误页面'
+//         },
+//         redirect: '/error/404'
+//       }
+//     ]
+//   }
+// ]
+
+
+
 
 export default routes

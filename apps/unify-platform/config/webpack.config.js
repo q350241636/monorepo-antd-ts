@@ -26,6 +26,7 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const postcssNormalize = require('postcss-normalize');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const appPackageJson = require(paths.appPackageJson);
 
@@ -47,6 +48,7 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.(less)$/;
 const lessModuleRegex = /\.module\.(less)$/;
+
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -291,8 +293,12 @@ module.exports = function(webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
         ...(modules.webpackAliases || {}),
+        // '@':paths.appSrc,
+        // '@': path.resolve('src'),
       },
       plugins: [
+
+        new TsconfigPathsPlugin(),
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
         // guards against forgotten dependencies and such.
         PnpWebpackPlugin,

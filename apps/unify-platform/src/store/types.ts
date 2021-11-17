@@ -1,7 +1,7 @@
-import { UserState } from './module/user';
-import { AppState } from './module/app';
-import { Settings } from './module/settings';
-import { NoticeState } from './module/notice';
+import { AppState } from './module/app'
+import { NoticeState } from './module/notice'
+import { Settings } from './module/settings'
+import { UserState } from './module/user'
 
 export interface IStoreState {
   app: AppState;

@@ -1,3 +1,20 @@
 {
-  "extends": "../../tsconfig.json"
+   "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    } ,
+    //support for vite
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "types": [
+      "vite/client",
+    ],
+  }
 }

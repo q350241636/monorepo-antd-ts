@@ -26,6 +26,7 @@
         "jsx": "react",
         "sourceMap": true,
         "removeComments": true,
-        "downlevelIteration": true
+        "downlevelIteration": true,
+      
     }
 }

@@ -53,9 +53,11 @@
     "jest": "^26.1.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
+    "majestic": "^1.8.1",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^26.1.3",
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "^4.4.4"
   },
   "dependencies": {

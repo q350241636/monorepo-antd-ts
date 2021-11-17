@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Breadcrumb } from 'antd'
-import { IRoute } from '../../router/config'
+import { IRoute } from '../../router/types'
 import './index.less'
 import { getBreadcrumbs } from '../../router/utils'
 

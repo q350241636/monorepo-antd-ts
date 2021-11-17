@@ -1,9 +1,10 @@
-import React, { memo } from 'react'
+import { BellOutlined, GithubOutlined } from '@ant-design/icons'
+import React, { MouseEventHandler, memo } from 'react'
+
 import { Badge } from 'antd'
-import { GithubOutlined, BellOutlined } from '@ant-design/icons'
 
 interface NavBarItemProps {
-  onClick: () => void
+  onClick: MouseEventHandler<HTMLDivElement>
   className?: string
   icon: string
   count: number
